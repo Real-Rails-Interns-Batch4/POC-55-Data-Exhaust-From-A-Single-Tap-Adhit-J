@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 import json
 
+from app.services.intelligence import build_sidebar_data
+
 app = FastAPI()
 
 @app.get("/")
@@ -18,3 +20,7 @@ def replay():
         data = json.load(file)
 
     return data
+
+@app.get("/api/intelligence")
+def intelligence():
+    return build_sidebar_data()
