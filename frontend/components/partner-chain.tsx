@@ -10,6 +10,11 @@ import ReactFlow, {
 } from "reactflow";
 
 import "reactflow/dist/style.css";
+import TooltipNode from "./tooltip-node";
+
+const nodeTypes = {
+  tooltipNode: TooltipNode,
+};
 
 const edges: Edge[] = [
   {
@@ -91,6 +96,7 @@ export default function PartnerChain({
       id: "1",
       position: { x: 250, y: 0 },
       data: { label: "User Tap" },
+      type: "tooltipNode",
       style: nodeStyle,
     });
 
@@ -98,6 +104,7 @@ export default function PartnerChain({
       id: "2",
       position: { x: 250, y: 100 },
       data: { label: "Mobile App" },
+      type: "tooltipNode",
       style: nodeStyle,
     });
 
@@ -106,6 +113,7 @@ export default function PartnerChain({
         id: "3",
         position: { x: 250, y: 200 },
         data: { label: "Analytics SDK" },
+        type: "tooltipNode",
         style: nodeStyle,
       });
     }
@@ -115,6 +123,7 @@ export default function PartnerChain({
         id: "4",
         position: { x: 250, y: 300 },
         data: { label: "Location Provider" },
+        type: "tooltipNode",
         style: nodeStyle,
       });
     }
@@ -124,6 +133,7 @@ export default function PartnerChain({
         id: "5",
         position: { x: 250, y: 400 },
         data: { label: "Ad Exchange" },
+        type: "tooltipNode",
         style: nodeStyle,
       });
     }
@@ -132,6 +142,7 @@ export default function PartnerChain({
       id: "6",
       position: { x: 250, y: 500 },
       data: { label: "Data Partner" },
+      type: "tooltipNode",
       style: nodeStyle,
     });
 
@@ -143,6 +154,7 @@ export default function PartnerChain({
       <ReactFlow
         nodes={nodes}
         edges={edges}
+        nodeTypes={nodeTypes}
         fitView
       >
         <Background />
