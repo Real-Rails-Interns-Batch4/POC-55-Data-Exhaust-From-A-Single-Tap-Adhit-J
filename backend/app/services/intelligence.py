@@ -143,11 +143,23 @@ def _fetch_gdelt_source():
         return cached
 
     query = quote_plus("privacy")
-    payload = _fetch_json(
-        f"https://api.gdeltproject.org/api/v2/doc/doc?query={query}&mode=ArtList&maxrecords=1&format=json",
-        timeout=10,
-        headers={"User-Agent": "Mozilla/5.0"},
-    )
+    payload = None
+    last_error = None
+
+    for timeout in (20, 30):
+        try:
+            payload = _fetch_json(
+                f"https://api.gdeltproject.org/api/v2/doc/doc?query={query}&mode=ArtList&maxrecords=1&format=json",
+                timeout=timeout,
+                headers={"User-Agent": "Mozilla/5.0"},
+            )
+            break
+        except (URLError, TimeoutError) as exc:
+            last_error = exc
+
+    if payload is None:
+        raise last_error or TimeoutError("Unable to fetch live GDELT data")
+
     articles = payload.get("articles") or []
     article = articles[0] if articles else {}
 
