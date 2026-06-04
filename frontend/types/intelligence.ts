@@ -12,4 +12,18 @@ export interface IntelligenceData {
   privacyImplications: string[];
 
   mitigationTips: string[];
+
+  sources?: IntelligenceSource[];
+}
+
+export interface IntelligenceSource {
+  name: string;
+  full: string;
+  desc: string;
+  color: string;
+  bg: string;
+  border: string;
+  icon: string;
+  status: "LIVE" | "MOCK";
+  summary: string;
 }
