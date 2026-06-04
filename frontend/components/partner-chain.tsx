@@ -1,5 +1,7 @@
 "use client";
 
+import { useMemo } from "react";
+
 import ReactFlow, {
   Background,
   Controls,
@@ -8,92 +10,6 @@ import ReactFlow, {
 } from "reactflow";
 
 import "reactflow/dist/style.css";
-
-const nodes: Node[] = [
-  {
-    id: "1",
-    position: { x: 250, y: 0 },
-    data: { label: "User Tap" },
-    style: {
-      background: "#0B1117",
-      color: "#ffffff",
-      border: "1px solid #38BDF8",
-      borderRadius: "12px",
-      padding: "8px",
-      boxShadow: "0 0 12px rgba(56,189,248,0.15)",
-    },
-  },
-
-  {
-    id: "2",
-    position: { x: 250, y: 100 },
-    data: { label: "Mobile App" },
-    style: {
-      background: "#0B1117",
-      color: "#ffffff",
-      border: "1px solid #38BDF8",
-      borderRadius: "12px",
-      padding: "8px",
-      boxShadow: "0 0 12px rgba(56,189,248,0.15)",
-    },
-  },
-
-  {
-    id: "3",
-    position: { x: 250, y: 200 },
-    data: { label: "Analytics SDK" },
-    style: {
-      background: "#0B1117",
-      color: "#ffffff",
-      border: "1px solid #38BDF8",
-      borderRadius: "12px",
-      padding: "8px",
-      boxShadow: "0 0 12px rgba(56,189,248,0.15)",
-    },
-  },
-
-  {
-    id: "4",
-    position: { x: 250, y: 300 },
-    data: { label: "Location Provider" },
-    style: {
-      background: "#0B1117",
-      color: "#ffffff",
-      border: "1px solid #38BDF8",
-      borderRadius: "12px",
-      padding: "8px",
-      boxShadow: "0 0 12px rgba(56,189,248,0.15)",
-    },
-  },
-
-  {
-    id: "5",
-    position: { x: 250, y: 400 },
-    data: { label: "Ad Exchange" },
-    style: {
-      background: "#0B1117",
-      color: "#ffffff",
-      border: "1px solid #38BDF8",
-      borderRadius: "12px",
-      padding: "8px",
-      boxShadow: "0 0 12px rgba(56,189,248,0.15)",
-    },
-  },
-
-  {
-    id: "6",
-    position: { x: 250, y: 500 },
-    data: { label: "Data Partner" },
-    style: {
-      background: "#0B1117",
-      color: "#ffffff",
-      border: "1px solid #38BDF8",
-      borderRadius: "12px",
-      padding: "8px",
-      boxShadow: "0 0 12px rgba(56,189,248,0.15)",
-    },
-  },
-];
 
 const edges: Edge[] = [
   {
@@ -148,7 +64,80 @@ const edges: Edge[] = [
   },
 ];
 
-export default function PartnerChain() {
+interface PartnerChainProps {
+  analytics: boolean;
+  location: boolean;
+  adExchange: boolean;
+}
+
+export default function PartnerChain({
+  analytics,
+  location,
+  adExchange,
+}: PartnerChainProps) {
+  const nodes = useMemo(() => {
+    const result: Node[] = [];
+
+    const nodeStyle = {
+      background: "#0B1117",
+      color: "#ffffff",
+      border: "1px solid #38BDF8",
+      borderRadius: "12px",
+      padding: "8px",
+      boxShadow: "0 0 12px rgba(56,189,248,0.15)",
+    };
+
+    result.push({
+      id: "1",
+      position: { x: 250, y: 0 },
+      data: { label: "User Tap" },
+      style: nodeStyle,
+    });
+
+    result.push({
+      id: "2",
+      position: { x: 250, y: 100 },
+      data: { label: "Mobile App" },
+      style: nodeStyle,
+    });
+
+    if (analytics) {
+      result.push({
+        id: "3",
+        position: { x: 250, y: 200 },
+        data: { label: "Analytics SDK" },
+        style: nodeStyle,
+      });
+    }
+
+    if (location) {
+      result.push({
+        id: "4",
+        position: { x: 250, y: 300 },
+        data: { label: "Location Provider" },
+        style: nodeStyle,
+      });
+    }
+
+    if (adExchange) {
+      result.push({
+        id: "5",
+        position: { x: 250, y: 400 },
+        data: { label: "Ad Exchange" },
+        style: nodeStyle,
+      });
+    }
+
+    result.push({
+      id: "6",
+      position: { x: 250, y: 500 },
+      data: { label: "Data Partner" },
+      style: nodeStyle,
+    });
+
+    return result;
+  }, [analytics, location, adExchange]);
+
   return (
     <div className="h-[650px]">
       <ReactFlow
