@@ -1,5 +1,6 @@
 import Sidebar from "@/components/sidebar";
 import EventReplay from "@/components/event-replay";
+import EmittedFieldsTable from "@/components/emitted-fields-table";
 import PartnerChain from "@/components/partner-chain";
 
 export default function Home() {
@@ -27,6 +28,10 @@ export default function Home() {
 
             <div className="rounded-xl border border-[#1F2937] bg-[#0B1117] p-4">
               <EventReplay />
+            </div>
+
+            <div className="rounded-xl border border-[#1F2937] bg-[#0B1117] p-4">
+              <EmittedFieldsTable />
             </div>
           </div>
         </div>

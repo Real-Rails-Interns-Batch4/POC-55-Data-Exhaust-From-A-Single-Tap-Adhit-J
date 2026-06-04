@@ -33,6 +33,18 @@ def replay():
 
     return data
 
+@app.get("/api/emitted-fields")
+def emitted_fields():
+
+    with open(
+        "mock_data/emitted_fields.json",
+        "r"
+    ) as file:
+
+        data = json.load(file)
+
+    return data
+
 @app.get("/api/intelligence")
 def intelligence():
     return build_sidebar_data()

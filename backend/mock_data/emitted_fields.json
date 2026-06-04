@@ -1,0 +1,26 @@
+[
+  {
+    "field": "Device ID",
+    "value": "A1B2C3D4"
+  },
+  {
+    "field": "Session ID",
+    "value": "S-7821"
+  },
+  {
+    "field": "Timestamp",
+    "value": "12:01:01"
+  },
+  {
+    "field": "App Version",
+    "value": "1.0.0"
+  },
+  {
+    "field": "Location",
+    "value": "Enabled"
+  },
+  {
+    "field": "Network Type",
+    "value": "WiFi"
+  }
+]
