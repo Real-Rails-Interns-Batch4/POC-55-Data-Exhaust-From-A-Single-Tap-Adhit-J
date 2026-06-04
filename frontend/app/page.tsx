@@ -7,6 +7,7 @@ import EventReplay from "@/components/event-replay";
 import EmittedFieldsTable from "@/components/emitted-fields-table";
 import PartnerChain from "@/components/partner-chain";
 import PartnerFilters from "../components/partner-filters";
+import { Badge } from "@/components/ui/badge";
 
 export default function Home() {
   const [analytics, setAnalytics] =
@@ -21,13 +22,30 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-[#030712] text-white overflow-hidden">
       {/* Header */}
-      <header className="border-b border-[#1F2937] px-6 py-4">
-        <h1 className="text-2xl font-bold">
-          Data Exhaust from a Single Tap
+      <header className="border-b border-slate-800 p-6">
+        <h1 className="text-4xl font-bold tracking-tight">
+          DATA EXHAUST FROM A SINGLE TAP
         </h1>
-        <p className="text-sm text-slate-400">
-          Real Rails Intelligence Library
+
+        <p className="mt-2 text-slate-400">
+          Distribution & Demand Intelligence Rail
         </p>
+
+        <div className="mt-4 flex gap-3">
+
+          <Badge>
+            LIVE DEMO
+          </Badge>
+
+          <Badge>
+            SYNTHETIC DATA
+          </Badge>
+
+          <Badge>
+            5 PARTNERS
+          </Badge>
+
+        </div>
       </header>
 
       {/* Main Layout */}

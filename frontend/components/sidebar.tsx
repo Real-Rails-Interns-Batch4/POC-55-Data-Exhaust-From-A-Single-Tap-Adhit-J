@@ -3,7 +3,9 @@
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import { IntelligenceData } from "@/types/intelligence";
+import DashboardCard from "./ui/dashboard-card";
 import DownloadData from "./download-data";
+import RiskMeter from "./risk-meter";
 
 export default function Sidebar() {
   const [data, setData] =
@@ -27,15 +29,49 @@ export default function Sidebar() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="rounded-xl border border-[#1F2937] bg-[#0B1117] p-4">
-        <h3 className="text-sm text-slate-400">
-          Partners Touched
-        </h3>
+      <DashboardCard>
+        <div className="space-y-4">
 
-        <p className="text-3xl font-bold text-cyan-400">
-          {data.metric.partnersTouched}
-        </p>
-      </div>
+          <div>
+            <p className="text-sm text-slate-400">
+              Partners Touched
+            </p>
+
+            <p className="text-4xl font-bold text-cyan-400">
+              5
+            </p>
+          </div>
+
+          <div>
+            <p className="text-sm text-slate-400">
+              Signals Emitted
+            </p>
+
+            <p className="text-xl font-semibold">
+              6
+            </p>
+          </div>
+
+          <div>
+            <p className="text-sm text-slate-400">
+              Risk Level
+            </p>
+
+            <p className="font-semibold text-red-400">
+              HIGH
+            </p>
+          </div>
+
+        </div>
+      </DashboardCard>
+
+      <DashboardCard title="Risk Assessment">
+        <RiskMeter
+          analytics={true}
+          location={true}
+          adExchange={true}
+        />
+      </DashboardCard>
 
       <div className="rounded-xl border border-[#1F2937] bg-[#0B1117] p-4">
         <h3 className="mb-2 font-semibold">
