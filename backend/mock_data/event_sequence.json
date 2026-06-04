@@ -1,0 +1,27 @@
+[
+  {
+    "time": "12:01:01",
+    "event": "User Tap",
+    "actor": "User"
+  },
+  {
+    "time": "12:01:02",
+    "event": "Analytics SDK Capture",
+    "actor": "Analytics SDK"
+  },
+  {
+    "time": "12:01:03",
+    "event": "Location Attached",
+    "actor": "Location Provider"
+  },
+  {
+    "time": "12:01:04",
+    "event": "Ad Request Generated",
+    "actor": "Ad Network"
+  },
+  {
+    "time": "12:01:05",
+    "event": "Partner Receives Data",
+    "actor": "Data Partner"
+  }
+]
