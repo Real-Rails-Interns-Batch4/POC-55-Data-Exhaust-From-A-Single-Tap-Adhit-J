@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import { IntelligenceData } from "@/types/intelligence";
+import DownloadData from "./download-data";
 
 export default function Sidebar() {
   const [data, setData] =
@@ -89,6 +90,8 @@ export default function Sidebar() {
           ))}
         </ul>
       </div>
+
+      <DownloadData />
     </div>
   );
 }
