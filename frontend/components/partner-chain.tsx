@@ -93,7 +93,7 @@ export default function PartnerChain({
     result.push(makeNode("2", 300, 140, "Mobile App",  "Event processor",       "📱", "app"));
 
     // Conditional middle-tier
-    let yPos = 260;
+    const yPos = 260;
     if (analytics) {
       result.push(makeNode("3", 80, yPos, "Analytics SDK", "Usage metrics", "📊", "sdk"));
     }

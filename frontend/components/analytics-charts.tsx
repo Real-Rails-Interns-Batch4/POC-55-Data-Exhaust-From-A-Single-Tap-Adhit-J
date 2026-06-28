@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import * as echarts from "echarts/core";
 import {
   BarChart,
@@ -61,12 +61,12 @@ function RiskBreakdownChart({
   const chartRef = useRef<HTMLDivElement>(null);
   const instanceRef = useRef<echarts.ECharts | null>(null);
 
-  const partners = [
+  const partners = useMemo(() => [
     { name: "Mobile App\n(Base)",      value: 20,  color: "#818CF8", active: true },
     { name: "Analytics SDK",            value: analytics  ? 20 : 0, color: "#FBBF24", active: analytics  },
     { name: "Location Provider",        value: location   ? 30 : 0, color: "#34D399", active: location   },
     { name: "Ad Exchange",              value: adExchange ? 30 : 0, color: "#F87171", active: adExchange },
-  ];
+  ], [analytics, location, adExchange]);
 
   const total = partners.reduce((s, p) => s + p.value, 0);
 
@@ -81,12 +81,13 @@ function RiskBreakdownChart({
 
     const chart = instanceRef.current;
 
-    const option: echarts.EChartsOption = {
+    const option: echarts.EChartsCoreOption = {
       backgroundColor: "transparent",
       grid: { left: 130, right: 60, top: 10, bottom: 10, containLabel: false },
       tooltip: {
         ...TOOLTIP_STYLE,
         trigger: "axis",
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         formatter: (params: any) => {
           const p = params[0];
           return `<div style="font-weight:600;color:${p.color}">${p.name}</div><div>Risk contribution: <b style="color:${p.color}">+${p.value}</b> pts</div>`;
@@ -128,6 +129,7 @@ function RiskBreakdownChart({
           label: {
             show: true,
             position: "right",
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             formatter: (p: any) =>
               p.value > 0 ? `{a|+${p.value}}` : `{b|OFF}`,
             rich: {
@@ -146,7 +148,7 @@ function RiskBreakdownChart({
     return () => {
       ro.disconnect();
     };
-  }, [analytics, location, adExchange]);
+  }, [analytics, location, adExchange, partners]);
 
   return (
     <div>
@@ -168,14 +170,14 @@ function RiskBreakdownChart({
   );
 }
 
+const TIMES  = ["12:01:01", "12:01:02", "12:01:03", "12:01:04", "12:01:05"];
+const SIGNALS = [1, 3, 5, 8, 12]; // cumulative signals emitted per event
+
 // ─── Chart 2: Signal Volume Timeline (Line) ──────────────────────────────────
 function SignalTimelineChart() {
   const chartRef = useRef<HTMLDivElement>(null);
   const instanceRef = useRef<echarts.ECharts | null>(null);
   const [animated, setAnimated] = useState(false);
-
-  const times  = ["12:01:01", "12:01:02", "12:01:03", "12:01:04", "12:01:05"];
-  const signals = [1, 3, 5, 8, 12]; // cumulative signals emitted per event
 
   useEffect(() => {
     const t = setTimeout(() => setAnimated(true), 300);
@@ -193,12 +195,13 @@ function SignalTimelineChart() {
 
     const chart = instanceRef.current;
 
-    const option: echarts.EChartsOption = {
+    const option: echarts.EChartsCoreOption = {
       backgroundColor: "transparent",
       grid: { left: 30, right: 20, top: 20, bottom: 24, containLabel: true },
       tooltip: {
         ...TOOLTIP_STYLE,
         trigger: "axis",
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         formatter: (params: any) => {
           const p = params[0];
           return `<div style="color:#64748b;margin-bottom:4px">${p.name}</div><div>Cumulative signals: <b style="color:#38BDF8">${p.value}</b></div>`;
@@ -206,7 +209,7 @@ function SignalTimelineChart() {
       },
       xAxis: {
         type: "category",
-        data: times,
+        data: TIMES,
         axisLabel: { ...AXIS_LABEL_STYLE, fontSize: 10 },
         axisLine: { lineStyle: { color: "#1F2937" } },
         axisTick: { show: false },
@@ -221,7 +224,7 @@ function SignalTimelineChart() {
       series: [
         {
           type: "line",
-          data: animated ? signals : [0, 0, 0, 0, 0],
+          data: animated ? SIGNALS : [0, 0, 0, 0, 0],
           smooth: 0.4,
           symbol: "circle",
           symbolSize: 7,
@@ -298,7 +301,7 @@ function PrivacyRadarChart({ analytics, location, adExchange }: AnalyticsChartPr
       adExchange ? 95 : 15,   // ad tracking
     ];
 
-    const option: echarts.EChartsOption = {
+    const option: echarts.EChartsCoreOption = {
       backgroundColor: "transparent",
       tooltip: {
         ...TOOLTIP_STYLE,
@@ -309,8 +312,8 @@ function PrivacyRadarChart({ analytics, location, adExchange }: AnalyticsChartPr
         radius: "62%",
         center: ["50%", "55%"],
         splitNumber: 4,
-        name: {
-          textStyle: { color: "#64748b", fontSize: 10, fontFamily: "Inter, sans-serif" },
+        axisName: {
+          color: "#64748b", fontSize: 10, fontFamily: "Inter, sans-serif",
         },
         splitLine: { lineStyle: { color: ["#1F2937", "#1F2937", "#1F2937", "#1F2937"] } },
         splitArea: {

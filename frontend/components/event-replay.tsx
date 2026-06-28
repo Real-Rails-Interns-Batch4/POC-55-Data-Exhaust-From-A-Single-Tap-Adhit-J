@@ -56,7 +56,9 @@ export default function EventReplay() {
         setVisibleCount((c) => c + 1);
       }, 600);
     } else if (isPlaying && visibleCount >= allEvents.length) {
-      setIsPlaying(false);
+      timerRef.current = setTimeout(() => {
+        setIsPlaying(false);
+      }, 0);
     }
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);

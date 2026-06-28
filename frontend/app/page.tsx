@@ -42,7 +42,7 @@ function BackendStatus() {
         } else {
           setStatus("disconnected");
         }
-      } catch (error) {
+      } catch {
         setStatus("disconnected");
       }
     };
@@ -156,7 +156,7 @@ export default function Home() {
       <section className="relative z-10 flex h-[calc(100vh-108px)] overflow-hidden">
 
         {/* 70% — Main Visualization Stage */}
-        <div className="overflow-y-auto px-5 py-5" style={{ width: "70%", minWidth: 0 }}>
+        <div className="flex-1 overflow-y-auto px-5 py-5" style={{ minWidth: 0 }}>
 
           <div className="space-y-5">
 

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import time
 from pathlib import Path
 from urllib.error import URLError
@@ -104,7 +105,8 @@ def _fetch_cfpb_source():
     if cached:
         return cached
 
-    payload = _fetch_json("https://www.consumerfinance.gov/data-research/consumer-complaints/search/api/v1/", timeout=8)
+    cfpb_url = os.environ.get("CFPB_API_URL", "https://www.consumerfinance.gov/data-research/consumer-complaints/search/api/v1/")
+    payload = _fetch_json(cfpb_url, timeout=8)
     hits = payload.get("hits", {})
     aggregations = payload.get("aggregations", {})
 
@@ -146,10 +148,12 @@ def _fetch_gdelt_source():
     payload = None
     last_error = None
 
+    gdelt_url = os.environ.get("GDELT_API_URL", "https://api.gdeltproject.org/api/v2/doc/doc")
+
     for timeout in (20, 30):
         try:
             payload = _fetch_json(
-                f"https://api.gdeltproject.org/api/v2/doc/doc?query={query}&mode=ArtList&maxrecords=1&format=json",
+                f"{gdelt_url}?query={query}&mode=ArtList&maxrecords=1&format=json",
                 timeout=timeout,
                 headers={"User-Agent": "Mozilla/5.0"},
             )

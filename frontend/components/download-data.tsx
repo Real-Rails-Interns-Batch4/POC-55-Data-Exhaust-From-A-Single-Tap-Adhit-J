@@ -9,7 +9,7 @@ export default function DownloadData() {
     try {
       const response = await api.get("/api/replay");
       data = response.data;
-    } catch (error) {
+    } catch {
       // Fallback to mock data if backend is offline
       data = MOCK_EVENTS;
     }
